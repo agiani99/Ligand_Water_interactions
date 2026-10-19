@@ -2,7 +2,7 @@
 
 Pilot analysis of crystallographic waters near co-crystallised ligands, run on three human targets:
 **CDK2** (P24941), **HSP90α** (P07900) and **carbonic anhydrase II** (P00918).
-The pilot also tests how well a generic "textbook" summary of water B-factors (the Gemini answer, `Gemini_ansqer.md`) holds up against real data.
+The pilot also tests how well a generic "textbook" summary of water B-factors (the Gemini answer, `Gemini_answer.md`) holds up against real data.
 
 ## Dataset
 
