@@ -1,0 +1,39 @@
+## Ligand-site waters: 373,812 ligand-water pairs, 22,033 entries, 1,821 UniProts
+water_B percentiles (A^2): {0.05: 13.3, 0.25: 23.6, 0.5: 32.4, 0.75: 41.9, 0.95: 57.0}
+Gemini bins (fraction of waters): <20: 0.16 | 20-35: 0.41 | 35-60: 0.39 | 60-80: 0.03 | >80: 0.003
+                                n  median_B  median_Bratio
+interaction                                               
+direct_water_metal          10895     23.22           0.73
+direct_water_only           33924     36.13           1.29
+direct_water_protein        86663     29.12           0.97
+proximal_no_polar_contact  242330     33.41           1.14
+                 n  median_B  median_Bratio
+resolution                                 
+(0.0, 1.0]    3945     17.67           1.63
+(1.0, 1.5]   69771     27.08           1.49
+(1.5, 2.0]  195319     32.10           1.13
+(2.0, 2.5]  104777     37.57           0.91
+Spearman resolution vs water_B: rho=0.29 p=0.0e+00 n=373,812
+Spearman resolution vs B_ratio: rho=-0.41 p=0.0e+00 n=373,812
+median water B across UniProts: IQR 28.8-42.1 (n=1821)
+
+## Sites: 17,482 sites in 644 UniProts; conserved (>=50% occupancy, >=10 structures): 3,081 in 404 UniProts
+ligand-water displacement events at conserved sites: 6,153 in 4,244 structures, 336 UniProts, 3,143 distinct ligands
+fraction of pocket observations at conserved sites that are 'displaced': 0.055
+top UniProts by displacement events: {'P01116': 387, 'P56817': 268, 'O60885': 231, 'P41182': 230, 'P15090': 195, 'P00918': 172, 'Q9Y253': 135, 'P15121': 111}
+Spearman resolution vs fraction of pocket sites with a water: rho=-0.16 p=6.1e-133 (n=22,154 structures)
+Spearman resolution vs number of displaced-water calls: rho=-0.15 p=6.5e-106
+
+## B ratio, ligand H-bonded water vs no contact (resolution-corrected), 924 sites: median delta -0.043; 61% of sites lower for H-bonded waters; Wilcoxon p=2.1e-17
+
+## pChEMBL vs water: 6,107 (UniProt, ligand) pairs, 648 UniProts; 109 UniProts with >=15 ligands
+random-effects meta-analysis of per-UniProt Spearman correlations with pChEMBL:
+                                    k  rho_random  ci_lo  ci_hi      p     I2  frac_pos
+Bratio_direct                   109.0      -0.022 -0.066  0.021  0.315  0.357     0.450
+Bratio_direct_sizecorr          109.0      -0.030 -0.075  0.014  0.185  0.383     0.440
+n_bridging                      109.0       0.069  0.020  0.117  0.006  0.487     0.532
+n_bridging_sizecorr             109.0       0.028 -0.020  0.075  0.256  0.456     0.514
+n_direct                        109.0       0.089  0.039  0.139  0.001  0.520     0.651
+n_direct_sizecorr               109.0       0.039 -0.009  0.088  0.109  0.474     0.523
+n_displaced_conserved            90.0       0.038 -0.012  0.088  0.136  0.428     0.556
+n_displaced_conserved_sizecorr   90.0      -0.030 -0.079  0.019  0.229  0.408     0.422

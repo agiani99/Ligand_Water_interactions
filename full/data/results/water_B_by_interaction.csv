@@ -1,0 +1,5 @@
+interaction,n,median_B,median_Bratio
+direct_water_metal,10895,23.22,0.73
+direct_water_only,33924,36.13,1.29
+direct_water_protein,86663,29.12,0.97
+proximal_no_polar_contact,242330,33.41,1.14
