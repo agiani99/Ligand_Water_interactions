@@ -2,7 +2,7 @@
 
 Pilot analysis of crystallographic waters near co-crystallised ligands, run on three human targets:
 **CDK2** (P24941), **HSP90α** (P07900) and **carbonic anhydrase II** (P00918).
-The pilot also tests how well a generic "textbook" summary of water B-factors (the Gemini answer, `Gemini_answer.md`) holds up against real data.
+The pilot also tests how well a generic "textbook" summary of water B-factors (the Gemini answer, `Gemini_ansqer.md`) holds up against real data.
 
 ## Dataset
 
@@ -87,9 +87,41 @@ Python 3.12 with gemmi, rdkit, pandas, numpy, scipy, matplotlib, requests. Run t
 | `05_chembl.py` | `ligand_pchembl.csv` (ChEMBL API) |
 | `06_pchembl_vs_water.py` | `pdb_ligand_pchembl_water.csv`, `ligand_level_pchembl_water.csv` |
 
+## Full-scale run (`full/`)
+
+Same conditions as the pilot, extended to **all** human X-ray structures: 40,672 matched, 23,052 kept with a ligand 250 < MW < 1000 after excluding glycans and listed additives (`full/exclude_ligands.txt`). Structures are streamed from RCSB in memory and never written to disk (`02_contacts.py`).
+
+| Quantity | Value |
+|---|---|
+| Ligand-water pairs (≤ 5 Å) | 373,812 (non-symmetry waters) in 22,033 entries, 1,821 UniProts |
+| Water sites (UniProt groups with ≥ 5 structures) | 17,482 in 644 UniProts; 3,081 conserved (≥ 50% occupancy, ≥ 10 structures) |
+| Ligand-water displacement events at conserved sites | 6,153 in 4,244 structures, 336 UniProts, 3,143 ligands |
+| Pockets superposed | 22,860 fitted (pocket RMSD ≤ 2.0 Å); 546 skipped |
+| Ligands with same-target pChEMBL (local ChEMBL 37, binding assays, confidence 8/9) | 6,107 (UniProt, ligand) pairs in 648 UniProts; 109 UniProts with ≥ 15 ligands |
+
+**Water B-factors vs the Gemini bands.** Median 32.4 Å² (IQR 24–42). The fractions are below 20 Å² 16%, 20–35 Å² 41%, 35–60 Å² 39%, 60–80 Å² 3%, above 80 Å² 0.3%. Most pocket waters therefore sit in the "well-ordered to mobile" range and few are extreme, but the 20–35 band is not special. Median B by interaction: metal-bridged 23, protein-bridged 29, proximal 33, ligand-only 36 Å². The ordering supports the "anchored means lower B" idea. By resolution, median B goes from 18 Å² (≤ 1.0 Å) to 38 Å² (2.0–2.5 Å) (Spearman ρ = 0.29), so absolute cutoffs are resolution-dependent. Normalised B ratio falls with resolution value (ρ = −0.41).
+
+**Direct contact vs none.** Within 924 sites with enough data, waters H-bonded to the ligand have a lower resolution-corrected B ratio at 61% of sites (median difference −0.043, Wilcoxon p = 2e-17). The effect is real but small.
+
+**Resolution and displacement.** The fraction of pocket sites holding a water falls at poorer resolution (ρ = −0.16), and so does the number of displacement calls (ρ = −0.15). At conserved sites 5.5% of pocket observations are called displaced. The top targets by events are P01116 (KRAS), P56817 (BACE1), O60885 (BRD4), P41182 (BCL6), P15090 and P00918 (CA2).
+
+**pChEMBL vs water interaction (step 10).** Random-effects meta-analysis of per-UniProt Spearman correlations (109 UniProts):
+
+| Metric | ρ | 95% CI | After controlling ligand size |
+|---|---|---|---|
+| Direct water contacts | 0.089 | 0.039–0.139 | 0.039 (−0.009 to 0.088) |
+| Bridging waters | 0.069 | 0.020–0.117 | 0.028 (−0.020 to 0.075) |
+| Displaced conserved waters | 0.038 | −0.012 to 0.088 | −0.030 (−0.079 to 0.019) |
+| B ratio of H-bonded waters | −0.022 | −0.066 to 0.021 | −0.030 (−0.075 to 0.014) |
+
+Raw correlations for contact counts are small and positive, but they vanish once ligand heavy-atom count is controlled. Within a target, pChEMBL tracks ligand size strongly (ρ = 0.37). Conclusion: **no detectable relationship between water interactions or displacement and potency in this dataset, beyond ligand size.** The pilot's weak CA2 trend does not hold at scale.
+
+Full-scale caveats: ligand binding is assigned to the protein chain with the most contacts; only the first ligand copy per entry is used for sites; displacement is geometric (a site with no water and a ligand atom within 2.5 Å) and cannot separate true displacement from an unmodelled water; the structure-wide protein mean B is used for normalisation; pChEMBL coverage is about 6,100 pairs for 15,000 ligands.
+
+Run order in `full/`: `01_select.py` → `02_contacts.py` → `03_sites.py` → `04_chembl.py` → `05_stats.py`. Outputs: `full/data/results/` (`summary.txt`, `summary_plots.png`, CSV tables).
+
 ## Next steps
 
-- Extend from the pilot to all human X-ray structures under 2.5 Å.
-- Validate displacement calls against known cases such as HSP90 and CDK2.
-- Add `pdb_ligand_pchembl_water.csv` stratification by target family.
-- Use a local ChEMBL SQLite release instead of the web API.
+- Validate displacement calls against known cases (HSP90, CDK2, BRD4, BACE1, KRAS).
+- Stratify results by protein family and ligand chemotype.
+- Compare same-target pairs with and without a displaced water at matched resolution and matched ligand series, which is stronger than correlation.
