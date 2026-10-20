@@ -110,8 +110,3 @@ Python 3.12 with gemmi, rdkit, pandas, numpy, scipy, matplotlib, requests, biopy
 | `04_chembl.py` | `chembl/ligand_pchembl.csv` |
 | `05_stats.py` | `results/` (`summary.txt`, `summary_plots.png`, correlation tables) |
 | `06_matched_pairs.py` | `results/matched_pairs_*.csv`, `matched_pairs.png` |
-
-## Next steps
-
-- Restrict the matched-pair test to true matched molecular pairs (one substituent changed) and to series with consistent assays (same publication or assay ID).
-- Validate the displacement calls on known cases such as HSP90, BRD4, BACE1 and KRAS.
