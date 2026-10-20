@@ -95,8 +95,8 @@ Interpretation: there is **no detectable potency advantage for ligands that disp
 - Displacement is geometric (a site with no water and a ligand atom within 2.5 Å) and cannot separate a true displacement from an unmodelled water.
 - Water B is normalised by the structure-wide protein mean B.
 - Cutoffs (3.5 / 2.8 / 5.0 Å) are conventional defaults, not tuned.
-- pChEMBL values come from different assays and papers and exist for only about 6,100 (UniProt, ligand) pairs out of 15,000 ligands. Ligand similarity in the matched-pair test is whole-molecule fingerprint similarity, not a matched molecular pair on one substituent.
-- Gemini's literature citations were not verified.
+- pChEMBL values come from different assays and papers and exist for only about 6,100 (UniProt, ligand) pairs out of 15,000 ligands.
+- Ligand similarity in the matched-pair test is whole-molecule fingerprint similarity, not a matched molecular pair on one substituent.
 
 ## Reproducing
 
