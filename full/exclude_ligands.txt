@@ -1,0 +1,32 @@
+# Ligand comp IDs dropped from the analysis even when 250 < MW < 1000.
+# Edit freely: one ID per line, '#' starts a comment. Excluded rows are kept for audit in data/excluded_ligands.csv.
+# Saccharides (glycans) are excluded automatically by chem_comp type, no need to list them.
+# Detergents / lipids / crystallization additives
+BOG    # octyl glucoside
+LMT    # DDM
+DDM
+LDA    # lauryl dimethylamine oxide
+OLC    # monoolein
+OLA    # oleic acid
+OLB
+PLM    # palmitic acid
+MYR    # myristic acid
+STE    # stearic acid
+C8E
+LHG
+POPC
+PC1
+CPS    # CHAPS
+DXC    # deoxycholate
+CHD
+# PEG-like polymers with MW > 250
+PE8
+PEU
+PE5
+PE7
+PGE
+1PE
+P6G
+2PE
+# Buffers / cryoprotectants occasionally above 250
+TAR
